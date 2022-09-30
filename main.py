@@ -1,28 +1,26 @@
+#Massin Elotmani
 from datetime import datetime
 print("Niet scheldwoorden schrijven please😡")
 
-
-#def klant():
-
-mod_dis = False
-
+#modis = False
 vandaag = datetime.now()
-nu = vandaag.strftime("%m/%d/%Y, %H:%M:%S")
+tijd = vandaag.strftime("%m/%d/%Y %H:%M:%S")
 
 naam = input("Enter je name")
 bericht = input("Schrijf pzl")
 
-0
 if naam == "" or naam == " ":
     naam = "Anoniem"
 
 if len(bericht) > 140:
     print("Uw opmerking is te lang")
-elif mod_dis:
-    print("Uw taalgebruik mag niet")
+#elif mod_dis:
+#    print("Uw taalgebruik mag niet")
 else:
-    None
-info = (naam + " zei: " + bericht + " op " + nu)
-print(info)
-file = open("opmerkingen.txt", "a")
+    format_info = (naam + " schreef: " + "'" + bericht + "'" + " op " + tijd)
+    print(format_info)
 
+    file = open("opmerkingen.txt", "a")
+    raw_info = naam + ", " + bericht + ", " + tijd + "\n"
+    file.write(raw_info)
+    file.close()
