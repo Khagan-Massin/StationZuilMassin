@@ -1,8 +1,9 @@
 #Massin Elotmani
 from datetime import datetime
+
 print("Niet scheldwoorden schrijven please😡")
 
-#modis = False
+
 vandaag = datetime.now()
 tijd = vandaag.strftime("%m/%d/%Y %H:%M:%S")
 
@@ -14,8 +15,7 @@ if naam == "" or naam == " ":
 
 if len(bericht) > 140:
     print("Uw opmerking is te lang")
-#elif mod_dis:
-#    print("Uw taalgebruik mag niet")
+
 else:
     format_info = (naam + " schreef: " + "'" + bericht + "'" + " op " + tijd)
     print(format_info)
