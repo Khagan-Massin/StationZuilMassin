@@ -8,7 +8,7 @@ vandaag = datetime.now()
 tijd = vandaag.strftime("%m/%d/%Y %H:%M:%S")
 
 naam = input("Enter je name")
-bericht = input("Schrijf pzl")
+bericht = input("Schrijf uw bericht")
 
 if naam == "" or naam == " ":
     naam = "Anoniem"
