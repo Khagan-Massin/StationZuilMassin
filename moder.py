@@ -11,6 +11,6 @@ for line in opmerk.readlines():
         opmerk = open("opmerkingen.txt", "w")
         line.strip("\n")
     else:
-        print("je moeder")
+        print("niet ok")
 opmerk.close()
 goed.close()
