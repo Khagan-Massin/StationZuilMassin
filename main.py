@@ -21,6 +21,6 @@ else:
     print(format_info)
 
     file = open("opmerkingen.txt", "a")
-    raw_info = naam + ", " + bericht + ", " + tijd + "\n"
+    raw_info = naam + ", '" + bericht + "', " + tijd + "\n"
     file.write(raw_info)
     file.close()
