@@ -9,7 +9,7 @@ for line in opmerk.readlines():
         print("ok")
         goed.write(line)
         opmerk = open("opmerkingen.txt", "w")
-        line.strip("\n")
+        #line.strip("\n")
     else:
         print("niet ok")
 opmerk.close()
