@@ -1,11 +1,11 @@
 #Massin Elotmani
 from datetime import datetime
 
-print("Niet scheldwoorden schrijven please😡")
-
-
 vandaag = datetime.now()
 tijd = vandaag.strftime("%m/%d/%Y %H:%M:%S")
+
+
+print("Niet scheldwoorden schrijven please😡")
 
 naam = input("Enter je name")
 bericht = input("Schrijf uw bericht")
