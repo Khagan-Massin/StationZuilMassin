@@ -10,17 +10,25 @@ fout = open("Afgekeurd.txt", "a")
 #Als de gebruiker "ja" typt woord het naar "Goedgekeurt.txt" geschrijven
 #Zo niet word het naar "Afgekeurd.txt" geschrijven
 
+naam_mod = input("Voer uw naam in")
+
 for line in opmerk.readlines():
     print(line)
     response = input("Type 'Ja' om goedtekeuren type 'Nee' om aftekeuren ")
-    if response == "Ja" or response == "ja" or response == "jA" or response == "JA":
-        print("Goedgekeurd")
-        goed.write(line)
 
-    else:
-        print("Afgekeurd")
-        fout.write(line)
-
+    #Pas als de mod Ja of Nee typte breekt hij uit de loop.
+    while True:
+        if response in ["Ja","ja","jA","JA"]:
+            print("Goedgekeurd")
+            line = line.strip("\n")
+            goed.write(f"{line}|{naam_mod}\n")
+            break
+        elif response in ["Nee","nee","NEE","nEE","NeE","nEe","NEe"]:
+            print("Afgekeurd")
+            line = line.strip("\n")
+            fout.write(f"{line}|{naam_mod}\n")
+            break
+        response = input()
 
 opmerk.close()
 goed.close()

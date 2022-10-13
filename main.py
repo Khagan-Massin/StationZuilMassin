@@ -30,14 +30,15 @@ while True:
     if len(bericht) > 140:
         print("Uw opmerking is te lang")
 
-    elif "|" in bericht:
-        print("Illegal Character")
+    elif "|" in bericht or "|" in naam:
+        print("Illegal Character\n Do not use '|' or '\\n'")
+
     else:
         format_info = (f"{naam} schreef: '{bericht}' op {tijd} in {(list(gekozen_station))[0]}")
         # Laat de gebruiker zien wat hun geschrijven heeft.
         print(format_info)
         # Schrijft de info (naam, gekozen_station, bericht, tijd) tot naar een csv bestand.
         file = open("Opmerkingen.txt", "a")
-        raw_info = (f"'{naam}'| {(list(gekozen_station))[0]}|'{bericht}'| {tijd}\n")
+        raw_info = (f"{naam}|{(list(gekozen_station))[0]}|{bericht}|{tijd}\n")
         file.write(raw_info)
         file.close()
