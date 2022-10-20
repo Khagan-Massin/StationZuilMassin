@@ -1,5 +1,6 @@
 import psycopg2
 
+#open een verbinding met de database
 verbinding = psycopg2.connect(
     host = "localhost",
     database = "StationZuilMassin",
@@ -9,19 +10,18 @@ verbinding = psycopg2.connect(
 
 wijzer = verbinding.cursor()
 
-# open het opmerk bestand in read mode waar alle opmerkingen wachten voordat ze woorden beoordeeld
+# open het opmerkbestand in read mode waar alle opmerkingen wachten voordat ze woorden beoordeeld
 opmerk = open("Opmerkingen.csv", "r")
-
-#Print (naam, gekozen_station, bericht, tijd) naar het scherm.
-#Als de gebruiker "ja" typt woord het naar "Goedgekeurt.txt" geschrijven
-#Zo niet word het naar "Afgekeurd.csv" geschrijven
-
+"""
+Print (naam, gekozen_station, bericht, tijd) naar het scherm.
+Als de gebruiker "ja" typt woord het naar "Goedgekeurd.txt" geschreven
+Zo niet word het naar "Afgekeurd.csv" geschreven
+"""
 naam_mod = input("Voer uw naam in")
 
 for line in opmerk.readlines():
     line = line.strip("\n")
     line = line.split("|")
-    print(line)
 
     naam, station, bericht, tijddatum = line
 
@@ -39,16 +39,20 @@ for line in opmerk.readlines():
             break
         response = input()
 
+    #Insert het de rij in de database
     insertdb = (f"INSERT INTO opmerkingen(naam, station, bericht, goedgekeurd, mod_naam, datetime) Values('{naam}', '{station}', '{bericht}', {goedgekeurd},  '{naam_mod}', '{tijddatum}');")
-    print(insertdb)
     wijzer.execute(insertdb)
+    verbinding.commit()
 
-# Wipes Opmerkingen.csv
+"""
+Wipes Opmerkingen.csv
+Voorkomt dat je meer dan een keer een opmerking keurt
+"""
+
 opmerk = open("Opmerkingen.csv", "w")
 opmerk.write("")
 
-
-
+# De verbinding en bestand gesloten.
 opmerk.close()
 wijzer.close()
 verbinding.close()
