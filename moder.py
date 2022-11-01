@@ -1,5 +1,10 @@
+#Massin Elotmani
 import psycopg2
 
+'''''
+Dit script als moderatie en stuurt ook gelijk naar de database.
+main.py-->Opmerkingen.csv-->moder.py-->database
+'''''
 #open een verbinding met de database
 verbinding = psycopg2.connect(
     host = "localhost",
@@ -10,7 +15,7 @@ verbinding = psycopg2.connect(
 
 wijzer = verbinding.cursor()
 
-# open het opmerkbestand in read mode waar alle opmerkingen wachten voordat ze woorden beoordeeld
+# open opmerkingen.csv in read mode waar alle opmerkingen wachten voordat ze woorden beoordeeld
 opmerk = open("Opmerkingen.csv", "r")
 """
 Print (naam, gekozen_station, bericht, tijd) naar het scherm.
@@ -21,6 +26,7 @@ naam_mod = input("Voer uw naam in")
 
 for line in opmerk.readlines():
     line = line.strip("\n")
+    print(line)
     line = line.split("|")
 
     naam, station, bericht, tijddatum = line
@@ -40,8 +46,9 @@ for line in opmerk.readlines():
         response = input()
 
     #Insert het de rij in de database
-    insertdb = (f"INSERT INTO opmerkingen(naam, station, bericht, goedgekeurd, mod_naam, datetime) Values('{naam}', '{station}', '{bericht}', {goedgekeurd},  '{naam_mod}', '{tijddatum}');")
-    wijzer.execute(insertdb)
+    wijzer.execute(f"INSERT INTO opmerkingen(naam, station, bericht, goedgekeurd, mod_naam, datetime) "
+                   f"VALUES('{naam}', '{station}', '{bericht}', {goedgekeurd},  '{naam_mod}', '{tijddatum}');")
+
     verbinding.commit()
 
 """
@@ -56,3 +63,6 @@ opmerk.write("")
 opmerk.close()
 wijzer.close()
 verbinding.close()
+
+#Afscheidbericht
+print("\nHeb een fijne dag!")
