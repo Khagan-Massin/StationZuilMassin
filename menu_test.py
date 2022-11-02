@@ -1,4 +1,5 @@
 #Massin Elotmani
+import tkinter
 from tkinter import *
 import psycopg2
 from req import api_rek
@@ -14,10 +15,27 @@ weather = Label(master = root,
                     background='yellow',
                     foreground='blue',
                     font=('Arial', 16, 'bold'),
-                    width=25,height=25,
+                    width=25,height=2,
                     )
 
-weather.grid
+weather.grid(row = 0, column=2, columnspan=1)
+
+my_img = PhotoImage(file='img_lift.png')
+my_label = Label(master=root,image=my_img)
+my_label.grid(row = 1, column=1, columnspan=1)
+
+# my_img = PhotoImage(file='img_ovfiets.png')
+# my_label = Label(master=root,image=my_img)
+# my_label.grid(row = 5, column=2, columnspan=1)
+#
+# my_img = PhotoImage(file='img_pr.png')
+# my_label = Label(master=root,image=my_img)
+# my_label.grid(row = 5, column=3, columnspan=1)
+#
+# my_img = PhotoImage(file='img_toilet.png')
+# my_label = Label(master=root,image=my_img)
+# my_label.grid(row = 5, column=4, columnspan=1)
+
 
 verbinding = psycopg2.connect(
     host="localhost",
@@ -49,9 +67,7 @@ for row in random_text:
                     width=100,height=3,
                     )
 
-    label.pack()
-
-
+    label.grid(column=2, columnspan=1)
 
 
 
