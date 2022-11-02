@@ -1,9 +1,23 @@
+#Massin Elotmani
 from tkinter import *
 import psycopg2
-import requests
-import json
+from req import api_rek
+from req import weer_icon
 root = Tk()
+root['bg'] = 'yellow'
 
+print(api_rek())
+print(weer_icon())
+
+weather = Label(master = root,
+                    text=f"{api_rek()} C°",
+                    background='yellow',
+                    foreground='blue',
+                    font=('Arial', 16, 'bold'),
+                    width=25,height=25,
+                    )
+
+weather.grid
 
 verbinding = psycopg2.connect(
     host="localhost",
@@ -31,13 +45,11 @@ for row in random_text:
                     text=f"{row[0]} schreef: '{row[2]}' in {row[1]} op {row[6]}",
                     background='yellow',
                     foreground='blue',
-                    font=('Arial', 16, 'bold'),
+                    font=('Arial', 20, 'bold'),
                     width=100,height=3,
                     )
 
     label.pack()
-
-
 
 
 
