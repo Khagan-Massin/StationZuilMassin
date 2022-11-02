@@ -1,37 +1,48 @@
 from tkinter import *
-#from PIL import ImageTk, Image
-'''''''''
-def onclick():
-    base = int(entry.get())
-    square = base ** 2
-    outcome = f'square of: {base} = {square}'
-    label['text'] = outcome
-
+import psycopg2
+import requests
+import json
 root = Tk()
 
-label = Label(master=root, text="Hello World", height =2)
-label.pack()
 
-button = Button(master=root, text="Press", command=onclick)
-button.pack(pady=10)
+verbinding = psycopg2.connect(
+    host="localhost",
+    database="StationZuilMassin",
+    user="postgres",
+    password="HalloSQL1q2"
+)
 
-entry = Entry(master=root)
-entry.pack(pady=10, padx=10)
+wijzer = verbinding.cursor()
+
+wijzer.execute(
+    f"SELECT * "
+    f"FROM opmerkingen "
+    f"WHERE goedgekeurd = TRUE "
+    f"ORDER BY id DESC LIMIT 5;"
+)
+
+random_text = wijzer.fetchall()
+print(random_text)
+verbinding.commit()
+wijzer.close()
+
+for row in random_text:
+    label = Label(master = root,
+                    text=f"{row[0]} schreef: '{row[2]}' in {row[1]} op {row[6]}",
+                    background='yellow',
+                    foreground='blue',
+                    font=('Arial', 16, 'bold'),
+                    width=100,height=3,
+                    )
+
+    label.pack()
+
+
+
+
+
+
+
+
 
 root.mainloop()
-
-
-img = Image.open(file='train.jpg')
-bg = ImageTk.PhotoImage(img)
-bg.pack()
-label = Label(master = root, image=img)
-label = Label(master = root,
-              text = 'Hello World',
-              background = 'red',
-              foreground = 'white',
-              font = ('Arial', 16, 'bold italic'),
-              width = 15,
-              height = 8)
-'''''
-
-root = Tk()

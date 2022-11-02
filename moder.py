@@ -64,5 +64,5 @@ opmerk.close()
 wijzer.close()
 verbinding.close()
 
-#Afscheidbericht
+#Afscheidsbericht
 print("\nHeb een fijne dag!")
