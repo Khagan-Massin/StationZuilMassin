@@ -1,4 +1,5 @@
-def api_rek():
+#Massin Elotmani
+def temp_req():
     import requests
     import json
     resource_uri = "https://api.openweathermap.org/data/2.5/weather?q=amsterdam&appid=623674843eb5b413c214a36bad8eefdc"
@@ -17,6 +18,6 @@ def weer_icon():
     return boek['icon']
 
 if __name__ == "__main__":
-    api_rek()
-    weer_icon()
+    print(temp_req())
+    print(weer_icon())
 

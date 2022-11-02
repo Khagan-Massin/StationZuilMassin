@@ -22,14 +22,14 @@ Print (naam, gekozen_station, bericht, tijd) naar het scherm.
 Als de gebruiker "ja" typt woord het naar "Goedgekeurd.txt" geschreven
 Zo niet word het naar "Afgekeurd.csv" geschreven
 """
-naam_mod = input("Voer uw naam in")
+naam_mod = input("Voer uw naam in ")
 
 for line in opmerk.readlines():
-    line = line.strip("\n")
-    print(line)
-    line = line.split("|")
 
+    line = line.strip("\n")
+    line = line.split("|")
     naam, station, bericht, tijddatum = line
+    print(f"Gebruikersnaam: {naam} Station: {station} Bericht: {bericht} Op: {tijddatum} ")
 
     response = input("Type 'Ja' om goedtekeuren type 'Nee' om aftekeuren ")
 
