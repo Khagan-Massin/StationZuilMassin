@@ -18,8 +18,8 @@ def comment():
 
     while True:
         #Laat de gebruiker hun naam en opmerking in te voeren
-        naam = input("Enter je name")
-        bericht = input("Schrijf uw opmerking")
+        naam = input("Enter je name" )
+        bericht = input("Schrijf uw opmerking" )
 
         #Als er geen naam word ingevoerd word de naam "Anoniem"
         if naam == "" or naam == " ":

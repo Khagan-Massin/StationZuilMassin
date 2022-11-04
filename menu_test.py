@@ -46,8 +46,14 @@ wijzer.execute(
 random_text = wijzer.fetchall()
 verbinding.commit()
 
-for row in random_text:
+lift_img = PhotoImage(file=f'ov_icons/img_lift.png')
+ov_fiets_img = PhotoImage(file=f'ov_icons/img_ovfiets.png')
+pr_img = PhotoImage(file=f'ov_icons/img_pr.png')
+toilet_img = PhotoImage(file=f'ov_icons/img_toilet.png')
 
+rij = 0
+for row in random_text:
+    rij += 1
     wijzer.execute(f"SELECT * FROM station_service "
                    f"WHERE station_city = '{row[1]}'")
 
@@ -55,22 +61,40 @@ for row in random_text:
     faciliteit = faciliteit[0]
     print(faciliteit)
     station_city, country, ov_bike, elevator, toilet, park_and_ride = faciliteit
-    print(station_city)
+    col = 0
+
+    if ov_bike:
+        ov_fiets_label = Label(master=root, image=ov_fiets_img, background='#FFC917', width=150, height=150, )
+        ov_fiets_label.grid(column=col, columnspan=1, row=rij)
+        col += 1
+    if elevator:
+        lift_label = Label(master=root, image=lift_img, background='#FFC917', width=150, height=150, )
+        lift_label.grid(column=col, columnspan=1, row=rij)
+        col += 1
+    if toilet:
+        toilet_label = Label(master=root, image=toilet_img, background='#FFC917', width=150, height=150, )
+        toilet_label.grid(column=col, columnspan=1, row=rij)
+        col += 1
+    if park_and_ride:
+        pr_label = Label(master=root, image=pr_img, background='#FFC917', width=150, height=150, )
+        pr_label.grid(column=col, columnspan=1, row=rij)
+        col += 1
+    else:
+        pass
+    col = 0
 
     label = Label(master=root,
                   text=f"{row[0]} schreef: '{row[2]}' in {row[1]} op {row[6]}",
                   background='#FFC917',#NS geel
                   foreground='#003082',#NS blauw
                   font=('Arial', 20, 'bold'),
-                  width=50,
-                  height=3,
+                  width=65,
+                  height=2,
                   )
 
-    label.grid(column=3, columnspan=1, sticky=E)
+    label.grid(column=4, row=rij, columnspan=1, sticky=E)
 
-    # foto = Image(file=f'ov_icons/img_pr.png', imgtype='PNG')
-    # foto = foto.zoom(300,205)
-    # foto_label = Label(master=root, image=foto, background='#FFC917',width=10, height=10,)
-    # foto_label.grid(column=0, columnspan=1,row=rij , sticky=E)
+
+
 
 root.mainloop()
