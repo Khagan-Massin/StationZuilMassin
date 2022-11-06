@@ -6,12 +6,12 @@ from req import temp_req
 from req import weer_icon
 root = Tk()
 root['bg'] = '#FFC917'
-root.geometry("1280x720")
+# root.geometry("1280x720")
 
 
 logo_img = PhotoImage(file=f'NS_logo2.png')
 logo_label = Label(master=root, image=logo_img, background='#FFC917')
-logo_label.grid(row=0, column=1)
+logo_label.grid(row=0, column=0)
 
 weer_img = PhotoImage(file=f'weather_icons/{weer_icon()}@2x.png')
 
@@ -25,7 +25,7 @@ weather = Label(master=root,
                 compound='bottom',
                 )
 
-weather.grid(row=0, column=3, columnspan=1)
+weather.grid(row=0, column=4, columnspan=1, sticky=E)
 
 verbinding = psycopg2.connect(
     host="localhost",
@@ -64,19 +64,19 @@ for row in random_text:
     col = 0
 
     if ov_bike:
-        ov_fiets_label = Label(master=root, image=ov_fiets_img, background='#FFC917', width=150, height=150, )
+        ov_fiets_label = Label(master=root, image=ov_fiets_img, background='#FFC917', width=150, height=120, )
         ov_fiets_label.grid(column=col, columnspan=1, row=rij)
         col += 1
     if elevator:
-        lift_label = Label(master=root, image=lift_img, background='#FFC917', width=150, height=150, )
+        lift_label = Label(master=root, image=lift_img, background='#FFC917', width=150, height=120, )
         lift_label.grid(column=col, columnspan=1, row=rij)
         col += 1
     if toilet:
-        toilet_label = Label(master=root, image=toilet_img, background='#FFC917', width=150, height=150, )
+        toilet_label = Label(master=root, image=toilet_img, background='#FFC917', width=150, height=120, )
         toilet_label.grid(column=col, columnspan=1, row=rij)
         col += 1
     if park_and_ride:
-        pr_label = Label(master=root, image=pr_img, background='#FFC917', width=150, height=150, )
+        pr_label = Label(master=root, image=pr_img, background='#FFC917', width=150, height=120, )
         pr_label.grid(column=col, columnspan=1, row=rij)
         col += 1
     else:

@@ -23,41 +23,55 @@ Als de gebruiker "ja" typt woord het naar "Goedgekeurd.txt" geschreven
 Zo niet word het naar "Afgekeurd.csv" geschreven
 """
 naam_mod = input("Voer uw naam in ")
+mod_email = input("Voer uw Email in ")
 
-for line in opmerk.readlines():
+voor_lines = opmerk.readlines()
+bestand_lijst = voor_lines.copy()
+for line in voor_lines:
 
-    line = line.strip("\n")
-    line = line.split("|")
-    naam, station, bericht, tijddatum = line
-    print(f"Gebruikersnaam: {naam} Station: {station} Bericht: {bericht} Op: {tijddatum} ")
+    newline = line.split("|")
+    naam, station, bericht, tijddatum = newline
+    print(f"Gebruikersnaam: {naam}\nStation: {station}\nBericht: {bericht}\nOp: {tijddatum}")
 
     response = input("Type 'Ja' om goedtekeuren type 'Nee' om aftekeuren ")
 
     #Pas als de mod Ja of Nee typte breekt hij uit de loop.
     while True:
-        if response in ["Ja","ja","jA","JA"]:
+        if response.lower() == 'ja':
             print("Goedgekeurd")
             goedgekeurd = "TRUE"
             break
-        elif response in ["Nee","nee","NEE","nEE","NeE","nEe","NEe"]:
+        elif response.lower() == 'nee':
             print("Afgekeurd")
             goedgekeurd = "FALSE"
             break
+        elif response.lower() == 'stop':
+            opmerk = open("Opmerkingen.csv", "w")
+            opmerk.writelines(bestand_lijst)
+            break
         response = input()
+    if response.lower() == 'stop':
+        break
 
     #Insert het de rij in de database
     wijzer.execute(f"INSERT INTO opmerkingen(naam, station, bericht, goedgekeurd, mod_naam, datetime) "
-                   f"VALUES('{naam}', '{station}', '{bericht}', {goedgekeurd},  '{naam_mod}', '{tijddatum}');")
+                   f"VALUES('{naam}', '{station}', '{bericht}', {goedgekeurd},  '{naam_mod}', '{tijddatum}'); ")
 
     verbinding.commit()
 
+    print(line)
+    bestand_lijst.remove(line)
+    print(bestand_lijst)
+    #print(bestand_lijst)
+else:
+    opmerk = open("Opmerkingen.csv", "w")
+    opmerk.writelines("")
 """
 Wipes Opmerkingen.csv
 Voorkomt dat je meer dan een keer een opmerking keurt
 """
 
-opmerk = open("Opmerkingen.csv", "w")
-opmerk.write("")
+
 
 # De verbinding en bestand gesloten.
 opmerk.close()

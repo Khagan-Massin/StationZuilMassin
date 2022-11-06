@@ -9,7 +9,7 @@ def comment():
 
 
     #Geeft de huidige tijd.
-    #Word later achter de reactie geschrijven in het csv bestand
+    #Word later achter de reactie geschreven in het csv-bestand
     vandaag = datetime.now()
     tijd = vandaag.strftime("%m-%d-%Y %H:%M:%S")
 
@@ -35,7 +35,7 @@ def comment():
         else:
             # Laat de gebruiker zien wat hun geschreven heeft.
             print(f"{naam} schreef: '{bericht}' op {tijd} in {gekozen_station}")
-            # Schrijft de info (naam, gekozen_station, bericht, tijd) in een CSV bestand.
+            # Schrijft de info (naam, gekozen_station, bericht, tijd) in een CSV-bestand.
             file = open("Opmerkingen.csv", "a")
             raw_info = (f"{naam}|{gekozen_station}|{bericht}|{tijd}\n")
             file.write(raw_info)
