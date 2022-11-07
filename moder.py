@@ -1,5 +1,6 @@
 #Massin Elotmani
 import psycopg2
+from datetime import datetime
 
 '''''
 Dit script als moderatie en stuurt ook gelijk naar de database.
@@ -57,9 +58,19 @@ for line in voor_lines:
     if response.lower() == 'stop':
         break
 
+
+
     #Insert het de rij in de database
-    wijzer.execute(f"INSERT INTO opmerkingen(naam, station, bericht, goedgekeurd, mod_naam, datetime) "
-                   f"VALUES('{naam}', '{station}', '{bericht}', {goedgekeurd},  '{naam_mod}', '{tijddatum}'); ")
+    wijzer.execute(f"INSERT INTO opmerkingen(naam, station, bericht, goedgekeurd, mod_naam, datetime, mod_email) "
+                   f"VALUES('{naam}', '{station}', '{bericht}', {goedgekeurd},  '{naam_mod}', '{tijddatum}','{mod_email}'); ")
+
+    verbinding.commit()
+
+    vandaag = datetime.now()
+    tijd = vandaag.strftime("%m-%d-%Y %H:%M:%S")
+
+    wijzer.execute(f"INSERT INTO moderator(mod_email, mod_naam, keuring_datumtijd, bericht ) "
+                   f"VALUES('{mod_email}', '{naam_mod}', '{tijd}','{bericht}');")
 
     verbinding.commit()
 
