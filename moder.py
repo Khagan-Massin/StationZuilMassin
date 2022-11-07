@@ -31,7 +31,10 @@ for line in voor_lines:
 
     newline = line.split("|")
     naam, station, bericht, tijddatum = newline
-    print(f"Gebruikersnaam: {naam}\nStation: {station}\nBericht: {bericht}\nOp: {tijddatum}")
+    print(f"Gebruikersnaam: {naam}\n"
+          f"Station: {station}\n"
+          f"Bericht: {bericht}\n"
+          f"Op: {tijddatum}")
 
     response = input("Type 'Ja' om goedtekeuren type 'Nee' om aftekeuren ")
 
@@ -50,6 +53,7 @@ for line in voor_lines:
             opmerk.writelines(bestand_lijst)
             break
         response = input()
+
     if response.lower() == 'stop':
         break
 
@@ -59,13 +63,10 @@ for line in voor_lines:
 
     verbinding.commit()
 
-    print(line)
     bestand_lijst.remove(line)
-    print(bestand_lijst)
-    #print(bestand_lijst)
 else:
     opmerk = open("Opmerkingen.csv", "w")
-    opmerk.writelines("")
+    opmerk.truncate(0)
 """
 Wipes Opmerkingen.csv
 Voorkomt dat je meer dan een keer een opmerking keurt
@@ -77,6 +78,5 @@ Voorkomt dat je meer dan een keer een opmerking keurt
 opmerk.close()
 wijzer.close()
 verbinding.close()
-
 #Afscheidsbericht
 print("\nHeb een fijne dag!")
