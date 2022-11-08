@@ -116,7 +116,7 @@ for row_last5 in last_5:
                           background='#FFC917',  #NS geel
                           foreground='#003082',  #NS blauw
                           font=('Arial', 20, 'bold'),
-                          width=65,
+                          width=69,
                           height=2,
                           )
 
