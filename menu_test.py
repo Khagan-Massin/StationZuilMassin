@@ -7,40 +7,43 @@ from req import temp_req
 from req import weer_icon
 root = Tk()
 root['bg'] = '#FFC917'
-#root.geometry("1280x720")
+root.title('Nederlandse Spoorwegen')
 
 
-
+# Voegt NS logo
 logo_img = PhotoImage(file=f'NS_logo2.png')
-logo_label = Label(master=root, image=logo_img, background='#FFC917')
-logo_label.grid(row=0, column=0)
+logo_label = Label(master=root, image=logo_img, background='#FFC917', relief = 'sunken')
+logo_label.grid(row=0, column=0, sticky = N)
 def weer_func(stad):
     weer_img = PhotoImage(file=f'weather_icons/{weer_icon(stad)}@2x.png')
 
     weather = Label(master=root,
-                    text=f" {temp_req(stad)} C°",
+                    text=f"{temp_req(stad)} C° in\n{stad}",
                     background='#89CFF0',
                     foreground='white',
                     font=('Arial', 25, 'bold'),
-                    width=200, height=125,
+                    width=230, height=175,
                     image=weer_img,
-                    compound='bottom',
+                    compound='top',
                     )
     weather.img = weer_img
 
     weather.grid(row=0, column=4, columnspan=1, sticky=E)
-
-weer_button_ams = ttk.Button(root, text="Amsterdam", command=lambda: weer_func("amsterdam"))
+# Maak Knoppen voor weer in verschillende steden
+weer_button_ams = ttk.Button(root, text="Amsterdam", command=lambda: weer_func("Amsterdam"))
 weer_button_ams.grid(row=0, column=1, sticky=E)
 
-weer_button_utr = ttk.Button(root, text="Utrecht", command=lambda: weer_func("utrecht"))
+weer_button_utr = ttk.Button(root, text="Utrecht", command=lambda: weer_func("Utrecht"))
 weer_button_utr.grid(row=0, column=2, sticky=W)
 
-weer_button_rot = ttk.Button(root, text="Rotterdam", command=lambda: weer_func("rotterdam"))
+weer_button_rot = ttk.Button(root, text="Rotterdam", command=lambda: weer_func("Rotterdam"))
 weer_button_rot.grid(row=0, column=3, sticky=W)
 
-weer_button_hil = ttk.Button(root, text="Hilversum", command=lambda: weer_func("hilversum"))
+weer_button_hil = ttk.Button(root, text="Hilversum", command=lambda: weer_func("Hilversum"))
 weer_button_hil.grid(row=0, column=4, sticky=W)
+
+# Voor dat een van de knoppen is ingedrukt laat het weer in utrecht zien
+weer_func('Utrecht')
 
 verbinding = psycopg2.connect(
     host="localhost",
@@ -59,6 +62,7 @@ wijzer.execute(
 )
 
 last_5 = wijzer.fetchall()
+print((last_5[4])[5])
 verbinding.commit()
 
 lift_img = PhotoImage(file=f'ov_icons/img_lift.png')
@@ -79,25 +83,25 @@ for row_last5 in last_5:
 
     if ov_bike:
         ov_fiets_label = Label(master=root, image=ov_fiets_img, background='#003082', width=128, height=128, )
-        ov_fiets_label.grid(column=col, columnspan=1, row=rij)
+        ov_fiets_label.grid(column=col, columnspan=1, row=rij ,sticky=E)
         col += 1
     if elevator:
         lift_label = Label(master=root, image=lift_img, background='#003082', width=128, height=128, )
-        lift_label.grid(column=col, columnspan=1, row=rij)
+        lift_label.grid(column=col, columnspan=1, row=rij,sticky=E)
         col += 1
     if toilet:
         toilet_label = Label(master=root, image=toilet_img, background='#003082', width=128, height=128, )
-        toilet_label.grid(column=col, columnspan=1, row=rij)
+        toilet_label.grid(column=col, columnspan=1, row=rij,sticky=E)
         col += 1
     if park_and_ride:
         pr_label = Label(master=root, image=pr_img, background='#003082', width=128, height=128, )
-        pr_label.grid(column=col, columnspan=1, row=rij)
+        pr_label.grid(column=col, columnspan=1, row=rij,sticky=E)
         col += 1
 
     col = 0
 
     comment_label = Label(master=root,
-                          text=f"{row_last5[0]} schreef: '{row_last5[2]}' in {row_last5[1]} op {row_last5[6]}",
+                          text=f"{row_last5[0]} schreef: '{row_last5[2]}' in {row_last5[1]} op {row_last5[5]}",
                           background='#FFC917',  #NS geel
                           foreground='#003082',  #NS blauw
                           font=('Arial', 20, 'bold'),
@@ -105,12 +109,14 @@ for row_last5 in last_5:
                           height=2,
                           )
 
-    comment_label.grid(column=4, row=rij, columnspan=1, sticky=N)
+    comment_label.grid(column=4, row=rij, columnspan=1,)
 
     sep = ttk.Separator(
         master = root,
         orient = 'horizontal'
     )
-    sep.grid(row=rij, column=4, columnspan=1 ,ipadx=500, pady=10)
+    sep.grid(row=rij, column=4, columnspan=1 ,ipadx=500, pady=10, sticky=S)
 
+wijzer.close()
 root.mainloop()
+0
