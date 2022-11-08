@@ -3,7 +3,7 @@ import psycopg2
 from datetime import datetime
 
 '''''
-Dit script als functioneert moderatie en stuurt ook gelijk naar de database.
+Dit script functioneert als moderatie en stuurt berichten ook gelijk naar de database.
 main.py-->Opmerkingen.csv-->moder.py-->database
 
 
@@ -20,11 +20,6 @@ wijzer = verbinding.cursor()
 
 # open opmerkingen.csv in read mode waar alle opmerkingen wachten voordat ze woorden beoordeeld
 opmerk = open("Opmerkingen.csv", "r")
-"""
-Print (naam, gekozen_station, bericht, tijd) naar het scherm.
-Als de gebruiker "ja" typt woord het naar "Goedgekeurd.txt" geschreven
-Zo niet word het naar "Afgekeurd.csv" geschreven
-"""
 naam_mod = input("Voer uw naam in ")
 mod_email = input("Voer uw Email in ")
 
@@ -46,9 +41,10 @@ for line in voor_lines:
           f"            Op: {tijddatum}")
 
     response = input("Type 'Ja' om goedtekeuren type 'Nee' om aftekeuren ")
-
-    #Pas als de mod Ja of Nee typte breekt hij uit de loop.
-    #Als hij stop typte breekt hij uit allebij loops en stopt hij met keuren
+    ''''
+    Pas als de moderator Ja of Nee typte breekt hij uit de loop.
+    Als hij stop typte breekt hij uit allebij loops en stopt hij met keuren
+    '''
     while True:
         if response.lower() == 'ja':
             print("Goedgekeurd")
@@ -80,7 +76,7 @@ for line in voor_lines:
     vandaag = datetime.now()
     tijd = vandaag.strftime("%m-%d-%Y %H:%M:%S")
     '''''
-    Insert moderator info in de mod table
+    Insert moderator info in de mod tabel
     '''''
     wijzer.execute(f"INSERT INTO moderator(mod_email, mod_naam, keuring_datumtijd) "
                    f"VALUES('{mod_email}', '{naam_mod}', '{tijd}');")
@@ -95,7 +91,7 @@ else:
     opmerk = open("Opmerkingen.csv", "w")
     opmerk.truncate(0)
 """
-Wipes Opmerkingen.csv
+Dit maakt Opmerkingen.csv leeg
 Voorkomt dat je meer dan een keer een opmerking keurt
 """
 
